@@ -25,11 +25,8 @@ var app = builder.Build();
 
 app.UseCors("PermitirTudo");
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // app.UseHttpsRedirection(); 
 
