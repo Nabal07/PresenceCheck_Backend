@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PresenceCheck.Api.Infrastructure.Context;
 using PresenceCheck.Api.Domain;
-// Adicione o using abaixo se criou a pasta DTOs:
-// using PresenceCheck.Api.Domain.DTOs; 
 
 namespace PresenceCheck.Api.Controllers;
 
