@@ -25,19 +25,29 @@ public class ConvidadosController : ControllerBase
     [HttpPost("registrar")]
     public async Task<IActionResult> Registrar([FromBody] RespostaConvidado pedido)
     {
-        if (string.IsNullOrWhiteSpace(pedido.Nome))
+        var nomeLimpo = pedido.Nome?.Trim();
+
+        if (string.IsNullOrWhiteSpace(nomeLimpo))
             return BadRequest("Por favor, digite seu nome.");
+
+        var jaExiste = await _context.Convidados
+            .AnyAsync(c => c.Nome.ToLower() == nomeLimpo.ToLower());
+
+        if (jaExiste)
+        {
+            return BadRequest("Este nome já confirmou presença!");
+        }
 
         var registro = new Convidado
         {
-            Nome = pedido.Nome,
-            Confirmado = pedido.Vai, 
-            DataConfirmacao = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc)
+            Nome = nomeLimpo,
+            Confirmado = pedido.Vai,
+            DataConfirmacao = DateTime.UtcNow
         };
 
         _context.Convidados.Add(registro);
         await _context.SaveChangesAsync();
 
-        return Ok(pedido.Vai ? "Presença confirmada!" : "Obrigado por avisar que não virá.");
+        return Ok(pedido.Vai ? "Presença confirmada!" : "Obrigado por avisar.");
     }
 }
