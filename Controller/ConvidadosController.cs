@@ -35,7 +35,7 @@ public class ConvidadosController : ControllerBase
 
         if (jaExiste)
         {
-            return BadRequest("Este nome já confirmou presença!");
+            return BadRequest("Este nome ja confirmou presenca!");
         }
 
         var registro = new Convidado
@@ -48,6 +48,6 @@ public class ConvidadosController : ControllerBase
         _context.Convidados.Add(registro);
         await _context.SaveChangesAsync();
 
-        return Ok(pedido.Vai ? "Presença confirmada!" : "Obrigado por avisar.");
+        return Ok(pedido.Vai ? "Presenca confirmada!" : "Obrigado por avisar.");
     }
 }
